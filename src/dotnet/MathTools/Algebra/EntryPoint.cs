@@ -1,6 +1,6 @@
-﻿namespace MathTools.Algebra;
+﻿namespace MathTools;
 
 [Command("algebra")]
-partial class EntryPoint : ConsoleAppBase
+partial class Algebra: ConsoleAppBase
 {
 }

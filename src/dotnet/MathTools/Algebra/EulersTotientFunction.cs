@@ -1,13 +1,14 @@
-﻿namespace MathTools.Algebra;
+﻿namespace MathTools;
 
-public partial class EntryPoint
+public partial class Algebra
 {
     /// <summary>
     /// オイラー関数の値を求める．
+    /// 例: dotnet run algebra euler --showDetails 34
     /// </summary>
     /// <param name="n"></param>
     /// <param name="showDetails"></param>
-    [Command("euler")]
+    [Command("euler", "オイラー関数の値を求めます．例: `algebra euler --showDetails 34`")]
     public void EulersTotientFunction([Option(0)]int n, [Option("d")] bool showDetails)
     {
         if (n < 1)
@@ -16,14 +17,20 @@ public partial class EntryPoint
             return;
         }
 
-        int count = 0;
+        var relativelyPrimeNumbers = new ConcurrentBag<int>();
+
+        relativelyPrimeNumbers.Add(1);
 
         Parallel.ForEach(Enumerable.Range(2, n - 1), x =>
         {
-            if (IsRelativelyPrime(x, n)) Interlocked.Increment(ref count);
+            if (IsRelativelyPrime(x, n)) relativelyPrimeNumbers.Add(x);
         });
 
-        Console.WriteLine(count + 1);
+        Console.WriteLine($"φ(n) = {relativelyPrimeNumbers.Count}");
+        if (showDetails)
+        {
+            Console.WriteLine($"{n} と互いに素な 1 以上 {n} 以下の整数: {string.Join(", ", relativelyPrimeNumbers.OrderBy(x => x))}");
+        }
     }
 
     /// <summary>
