@@ -23,7 +23,7 @@ public partial class Algebra
 
         Parallel.ForEach(Enumerable.Range(2, n - 1), x =>
         {
-            if (IsRelativelyPrime(x, n)) relativelyPrimeNumbers.Add(x);
+            if (AreRelativelyPrime(x, n)) relativelyPrimeNumbers.Add(x);
         });
 
         Console.WriteLine($"φ(n) = {relativelyPrimeNumbers.Count}");
@@ -46,7 +46,7 @@ public partial class Algebra
     /// <summary>
     /// 2つの整数が互いに素であるかを調べる．
     /// </summary>
-    private bool IsRelativelyPrime(int x, int y)
+    private bool AreRelativelyPrime(int x, int y)
     {
         return CalcGreatestCommonDivisor(x, y) == 1;
     }
